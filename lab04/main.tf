@@ -13,6 +13,7 @@ provider "azurerm" {
   features {}
 }
 
+
 # Create resource group
 resource "azurerm_resource_group" "az104-04-rg" {
     name = "az104-04-rg"
@@ -22,6 +23,7 @@ resource "azurerm_resource_group" "az104-04-rg" {
         training = "az104"
     }
 }
+
 
 # Create virtual network
 resource "azurerm_virtual_network" "az104-04-vnet1" {
@@ -35,7 +37,8 @@ resource "azurerm_virtual_network" "az104-04-vnet1" {
     }
 }
 
-#Create virtual subnet
+
+#Create virtual subnets
 resource "azurerm_subnet" "subnet0" {
   name = "subnet0"
   resource_group_name = azurerm_resource_group.az104-04-rg.name
@@ -48,6 +51,7 @@ resource "azurerm_subnet" "subnet1" {
   virtual_network_name = azurerm_virtual_network.az104-04-vnet1.name
   address_prefixes = ["10.40.1.0/24"]
 }
+
 
 # Create public ip addresses
 resource "azurerm_public_ip" "az104-04-pip0" {
@@ -66,7 +70,7 @@ resource "azurerm_public_ip" "az104-04-pip1" {
 }
 
 
-# Create virtual NIC 0
+# Create virtual NICs
 resource "azurerm_network_interface" "az104-04-nic0" {
   name = "az104-04-nic0"
   location = azurerm_resource_group.az104-04-rg.location
@@ -100,7 +104,7 @@ resource "azurerm_network_interface" "az104-04-nic1" {
   }
 }
 
-# Create virtual machine 0
+# Create virtual machines
 resource "azurerm_windows_virtual_machine" "az104-04-vm0" {
   name = "az104-04-vm0"
   resource_group_name = azurerm_resource_group.az104-04-rg.name
@@ -212,6 +216,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "az104-04-vnet1-link" {
 }
 
 
+# Create dns zone
 resource "azurerm_dns_zone" "pitmaster_com" {
   name = "pitmaster.com"
   resource_group_name = azurerm_resource_group.az104-04-rg.name
